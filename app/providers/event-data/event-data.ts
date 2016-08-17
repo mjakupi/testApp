@@ -43,11 +43,13 @@ export class EventData {
         event.revenue += eventPrice;
         return event;
       });
-      this.profilePictureRef.child(newGuest.key).child('profilePicture.png')
+      if (guestPicture != null) {
+        this.profilePictureRef.child(newGuest.key).child('profilePicture.png')
         .put(guestPicture).then((savedPicture) => {
           this.eventList.child(eventId).child('guestList').child(newGuest.key).child('profilePicture')
-            .set(savedPicture.downloadURL);
-      });
+          .set(savedPicture.downloadURL);
+        });        
+      }
     });
   }
 

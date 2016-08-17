@@ -10,7 +10,7 @@ import { Camera } from 'ionic-native';
 export class EventDetailPage {
   currentEvent: any;
   guestName: string = '';
-  guestPicture: any;
+  guestPicture: any = null;
   constructor(private nav: NavController, private navParams: NavParams, private eventData: EventData) {
     this.navParams = navParams;
 
