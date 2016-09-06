@@ -14,6 +14,7 @@ export class SignupPage {
   emailChanged: boolean = false;
   passwordChanged: boolean = false;
   submitAttempt: boolean = false;
+  loading: any;
 
 
   constructor(public nav: NavController, public authData: AuthData, public formBuilder: FormBuilder,
@@ -48,23 +49,23 @@ export class SignupPage {
       this.authData.signupUser(this.signupForm.value.email, this.signupForm.value.password).then(() => {
         this.nav.setRoot(HomePage);
       }, (error) => {
-        var errorMessage: string = error.message;
-          let alert = this.alertCtrl.create({
-            message: errorMessage,
-            buttons: [
-              {
-                text: "Ok",
-                role: 'cancel'
-              }
-            ]
-          });
-          alert.present();
+        this.loading.dismiss();
+        let alert = this.alertCtrl.create({
+          message: error.message,
+          buttons: [
+            {
+              text: "Ok",
+              role: 'cancel'
+            }
+          ]
+        });
+        alert.present();
       });
 
-      let loading = this.loadingCtrl.create({
+      this.loading = this.loadingCtrl.create({
         dismissOnPageChange: true,
       });
-      loading.present();
+      this.loading.present();
     }
   }
 }

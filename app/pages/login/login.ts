@@ -16,6 +16,7 @@ export class LoginPage {
   emailChanged: boolean = false;
   passwordChanged: boolean = false;
   submitAttempt: boolean = false;
+  loading: any;
 
   constructor(public nav: NavController, public authData: AuthData, public formBuilder: FormBuilder,
     public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
@@ -56,6 +57,7 @@ export class LoginPage {
       this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password).then( authData => {
         this.nav.setRoot(HomePage);
       }, error => {
+        this.loading.dismiss();
         let alert = this.alertCtrl.create({
           message: error.message,
           buttons: [
@@ -67,10 +69,10 @@ export class LoginPage {
         });
         alert.present();
       });
-      let loading = this.loadingCtrl.create({
+      this.loading = this.loadingCtrl.create({
         dismissOnPageChange: true,
       });
-      loading.present();
+      this.loading.present();
     }
   }
 
