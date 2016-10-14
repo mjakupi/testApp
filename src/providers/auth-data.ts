@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import firebase from 'firebase';
+
 
 @Injectable()
 export class AuthData {
@@ -8,6 +10,7 @@ export class AuthData {
 
   constructor() {
     this.fireAuth = firebase.auth(); // We are creating an auth reference.
+    
     // This declares a database reference for the userProfile/ node.
     this.userProfile = firebase.database().ref('/userProfile');
   }
@@ -31,10 +34,8 @@ export class AuthData {
    */
   signupUser(email: string, password: string): any {
     return this.fireAuth.createUserWithEmailAndPassword(email, password).then((newUser) => {
-      this.fireAuth.signInWithEmailAndPassword(email, password).then((authenticatedUser) => {
-        this.userProfile.child(authenticatedUser.uid).set({
-          email: email
-        });
+      this.userProfile.child(newUser.uid).set({
+        email: email
       });
     });
   }

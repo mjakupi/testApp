@@ -34,22 +34,22 @@ export class EventData {
   }
 
   addGuest(guestName, eventId, eventPrice, guestPicture = null): any {
-  return this.eventList.child(eventId).child('guestList').push({
-    guestName: guestName
-  }).then((newGuest) => {
-    this.eventList.child(eventId).transaction( (event) => {
-      event.revenue += eventPrice;
-      return event;
+    return this.eventList.child(eventId).child('guestList').push({
+      guestName: guestName
+    }).then((newGuest) => {
+      this.eventList.child(eventId).transaction( (event) => {
+        event.revenue += eventPrice;
+        return event;
+      });
+      if (guestPicture != null) {
+        this.profilePictureRef.child(newGuest.key).child('profilePicture.png')
+      .putString(guestPicture, 'base64', {contentType: 'image/png'})
+        .then((savedPicture) => {
+          this.eventList.child(eventId).child('guestList').child(newGuest.key).child('profilePicture')
+          .set(savedPicture.downloadURL);
+        });        
+      }
     });
-    if (guestPicture != null) {
-      this.profilePictureRef.child(newGuest.key).child('profilePicture.png')
-     .putString(guestPicture, 'base64', {contentType: 'image/png'})
-       .then((savedPicture) => {
-        this.eventList.child(eventId).child('guestList').child(newGuest.key).child('profilePicture')
-        .set(savedPicture.downloadURL);
-      });        
-    }
-  });
-}
+  }
 
 }

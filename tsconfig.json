@@ -10,14 +10,11 @@
     ],
     "module": "es2015",
     "moduleResolution": "node",
-    "target": "es5",
-    "typeRoots": [
-      "../node_modules/@types"
-    ],
-    "types": [
-      "firebase"
-    ]
+    "target": "es5"
   },
+  "types": [
+      "firebase"
+  ],
   "exclude": [
     "node_modules"
   ],

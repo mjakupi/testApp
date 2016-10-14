@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.emailcoursetutorial722860" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>emailCourseTutorial</name>
+<widget id="com.ionicframework.myeventmanager785904" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>myEventManager</name>
   <description>An awesome Ionic/Cordova app.</description>
   <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
   <content src="index.html"/>

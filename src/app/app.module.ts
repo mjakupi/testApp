@@ -17,22 +17,6 @@ import { AuthData } from '../providers/auth-data';
 import { EventData } from '../providers/event-data';
 import { ProfileData } from '../providers/profile-data';
 
-// Import the AF2 Module
-import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
- 
-// AF2 Settings
-export const firebaseConfig = {
-  apiKey: "AIzaSyBwEUe6x_w_yLFrr--xYLQJLxRT2Rc8vtY",
-  authDomain: "ionic-firebase-auth-9f555.firebaseapp.com",
-  databaseURL: "https://ionic-firebase-auth-9f555.firebaseio.com",
-  storageBucket: "ionic-firebase-auth-9f555.appspot.com"
-};
- 
-const myFirebaseAuthConfig = {
-  provider: AuthProviders.Password,
-  method: AuthMethods.Password
-}
-
 @NgModule({
   declarations: [
     MyApp,
@@ -46,8 +30,7 @@ const myFirebaseAuthConfig = {
     SignupPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
