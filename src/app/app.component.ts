@@ -26,7 +26,6 @@ export class MyApp {
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         this.rootPage = LoginPage;
-        console.log("HomePage", user);
       }
     });
 
