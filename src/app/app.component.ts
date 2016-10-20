@@ -12,7 +12,7 @@ import firebase from 'firebase';
   template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage: any;
+  rootPage: any = HomePage;
 
   constructor(platform: Platform) {
     firebase.initializeApp({
@@ -24,12 +24,9 @@ export class MyApp {
     });
 
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.rootPage = HomePage;
-        console.log("HomePage", user);
-      } else {
+      if (!user) {
         this.rootPage = LoginPage;
-        console.log("LoginPage", user);
+        console.log("HomePage", user);
       }
     });
 
