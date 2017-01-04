@@ -29,7 +29,9 @@ export class MyApp {
       this.zone.run( () => {
         if (!user) {
           this.rootPage = LoginPage;
-        } else { this.rootPage = HomePage; }
+        } else { 
+          this.rootPage = HomePage; 
+        }
       });     
     });
 
