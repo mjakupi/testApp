@@ -17,7 +17,9 @@ export class ProfileData {
     return this.userProfile.child(this.currentUser.uid);
   }
 
-  updateName(firstName: string, lastName: string): any {
+
+
+    updateName(firstName: string, lastName: string): any {
     return this.userProfile.child(this.currentUser.uid).update({
       firstName: firstName,
       lastName: lastName,

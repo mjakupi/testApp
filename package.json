@@ -17,7 +17,7 @@
     "@angular/platform-browser": "2.2.1",
     "@angular/platform-browser-dynamic": "2.2.1",
     "@angular/platform-server": "2.2.1",
-    "@ionic/storage": "1.1.7",
+    "@ionic/storage": "^1.1.7",
     "firebase": "^3.6.4",
     "ionic-angular": "2.0.0-rc.4",
     "ionic-native": "2.2.11",
@@ -29,7 +29,7 @@
     "@ionic/app-scripts": "0.0.48",
     "typescript": "^2.0.3"
   },
-  "description": "event-tutorial: An Ionic project",
+  "description": "Ionic2Recipe: An Ionic project",
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",

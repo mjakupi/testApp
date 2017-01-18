@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { ProfilePage } from '../profile/profile';
 import { EventCreatePage } from '../event-create/event-create';
 import { EventListPage } from '../event-list/event-list';
+import {FbLoginPage} from "../fb-login/fb-login";
 
 @Component({
   selector: 'page-home',
@@ -25,6 +26,10 @@ export class HomePage {
     this.nav.push(EventListPage);
   }
 
+  login()
+  {
+    this.nav.push(FbLoginPage);
+  }
 
 
 }

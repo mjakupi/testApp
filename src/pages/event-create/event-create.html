@@ -1,31 +1,34 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>New Event</ion-title>
+    <ion-title>New Recipe</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-item>
-    <ion-label stacked>Event Name</ion-label>
-    <ion-input [(ngModel)]="eventName" type="text" placeholder="What's your event's name?"></ion-input>
+    <ion-label stacked>Recipe</ion-label>
+    <ion-input [(ngModel)]="eventName" type="text" placeholder="What's your recipe's name"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label stacked>Price</ion-label>
-    <ion-input [(ngModel)]="eventPrice" type="number" placeholder="How much will guests pay?"></ion-input>
+    <ion-label stacked>Ingredients</ion-label>
+    <ion-input [(ngModel)]="ingredients" type="text" placeholder="Ingredients"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label stacked>Cost</ion-label>
-    <ion-input [(ngModel)]="eventCost" type="number" placeholder="How much are you spending?"></ion-input>
+    <ion-label stacked>Calories</ion-label>
+    <ion-input [(ngModel)]="calories" type="number" placeholder="Calories"></ion-input>
   </ion-item>
-
   <ion-item>
-    <ion-label>Event Date</ion-label>
-    <ion-datetime displayFormat="D MMM, YY" pickerFormat="DD MMM YYYY" [(ngModel)]="eventDate"></ion-datetime>
+    <ion-label stacked>Preparation</ion-label>
+    <ion-textarea [(ngModel)]="preparation" type="textbox" placeholder="Preparation">
+    </ion-textarea>
   </ion-item>
+  <ion-buttons >
+    <button ion-button block (click)="createEvent(eventName, ingredients,calories,preparation)">
+      Create Recipe
+    </button>
+  </ion-buttons>
 
-  <button ion-button block (click)="createEvent(eventName, eventDate, eventPrice, eventCost)">
-    Create Event
-  </button>
+
 </ion-content>

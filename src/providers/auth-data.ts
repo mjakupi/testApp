@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import firebase from 'firebase';
 
 
+
 @Injectable()
 export class AuthData {
   // Here we declare the variables we'll be using.
@@ -14,6 +15,9 @@ export class AuthData {
     // This declares a database reference for the userProfile/ node.
     this.userProfile = firebase.database().ref('/userProfile');
   }
+
+
+
 
   /**
    * [loginUser We'll take an email and password and log the user into the firebase app]

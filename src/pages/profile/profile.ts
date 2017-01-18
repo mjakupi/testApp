@@ -4,6 +4,8 @@ import { ProfileData } from '../../providers/profile-data';
 import { AuthData } from '../../providers/auth-data';
 import { LoginPage } from '../login/login';
 
+import {Facebook, NativeStorage} from 'ionic-native';
+
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
@@ -11,6 +13,7 @@ import { LoginPage } from '../login/login';
 export class ProfilePage {
   public userProfile: any;
   public birthDate: string;
+
 
   constructor(public nav: NavController, public profileData: ProfileData,
     public authData: AuthData, public alertCtrl: AlertController) {
@@ -27,6 +30,15 @@ export class ProfilePage {
       this.nav.setRoot(LoginPage);
     });
   }
+
+  logout() {
+
+    Facebook.logout().then((user) =>{
+    }, (error) => {
+      alert(error);
+    })
+  }
+
 
   updateName(){
     let alert = this.alertCtrl.create({

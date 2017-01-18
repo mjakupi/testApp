@@ -1,6 +1,8 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import {Storage} from "@ionic/storage";
+
 
 // Import pages
 import { HomePage } from '../pages/home/home';
@@ -16,6 +18,9 @@ import { SignupPage } from '../pages/signup/signup';
 import { AuthData } from '../providers/auth-data';
 import { EventData } from '../providers/event-data';
 import { ProfileData } from '../providers/profile-data';
+import {FbLoginPage} from "../pages/fb-login/fb-login";
+import {TabsPage} from "../pages/tabs/tabs";
+import {PhotoProvider} from "../providers/photo-provider";
 
 @NgModule({
   declarations: [
@@ -26,8 +31,11 @@ import { ProfileData } from '../providers/profile-data';
     EventListPage,
     LoginPage,
     ProfilePage,
+    FbLoginPage,
     ResetPasswordPage,
-    SignupPage
+    SignupPage,
+    TabsPage,
+      FbLoginPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -41,13 +49,18 @@ import { ProfileData } from '../providers/profile-data';
     EventListPage,
     LoginPage,
     ProfilePage,
+    FbLoginPage,
     ResetPasswordPage,
-    SignupPage
+    SignupPage,
+    TabsPage,
+    FbLoginPage
   ],
   providers: [
     [{provide: ErrorHandler, useClass: IonicErrorHandler}],
     AuthData,
+    Storage,
     EventData,
+    PhotoProvider,
     ProfileData
   ]
 })

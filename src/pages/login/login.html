@@ -7,7 +7,6 @@
 </ion-header>
 
 <ion-content padding>
-  <img src="http://placehold.it/300x100">
 
   <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
 
@@ -36,6 +35,11 @@
     </button>
 
   </form>
+      <button ion-button block clear (click)="facebookLogin()">
+          <ion-icon name="logo-facebook">
+                Login with Facebook
+          </ion-icon>
+      </button>
 
     <button ion-button block clear (click)="goToSignup()">
       Create a new account
@@ -44,5 +48,7 @@
     <button ion-button block clear (click)="goToResetPassword()">
       I forgot my password
     </button>
+
+
 
 </ion-content>

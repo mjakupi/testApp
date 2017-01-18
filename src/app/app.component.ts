@@ -1,11 +1,12 @@
-import { Component, NgZone } from '@angular/core';
-import { Platform } from 'ionic-angular';
-import { StatusBar } from 'ionic-native';
+import { Component, NgZone,ViewChild } from '@angular/core';
+import {Nav ,Platform } from 'ionic-angular';
+import {StatusBar, NativeStorage, Splashscreen} from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 
 import firebase from 'firebase';
+import {TabsPage} from "../pages/tabs/tabs";
 
 
 @Component({
@@ -14,15 +15,16 @@ import firebase from 'firebase';
 export class MyApp {
   rootPage: any;
   zone: NgZone;
+    @ViewChild(Nav) nav: Nav;
 
   constructor(platform: Platform) {
     this.zone = new NgZone({});
     firebase.initializeApp({
-      apiKey: "AIzaSyBwEUe6x_w_yLFrr--xYLQJLxRT2Rc8vtY",
-      authDomain: "ionic-firebase-auth-9f555.firebaseapp.com",
-      databaseURL: "https://ionic-firebase-auth-9f555.firebaseio.com",
-      storageBucket: "ionic-firebase-auth-9f555.appspot.com",
-      messagingSenderId: "904481277327"
+      apiKey: "AIzaSyCXgI_g55AS1w3EtrCPY4KUaxR9BQlO41k",
+      authDomain: "ionic2recipe.firebaseapp.com",
+      databaseURL: "https://ionic2recipe.firebaseio.com",
+      storageBucket: "ionic2recipe.appspot.com",
+      messagingSenderId: "122159437186",
     });
 
     firebase.auth().onAuthStateChanged((user) => {
@@ -30,15 +32,18 @@ export class MyApp {
         if (!user) {
           this.rootPage = LoginPage;
         } else { 
-          this.rootPage = HomePage; 
+          this.rootPage = TabsPage;
         }
       });     
     });
 
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-    });
+            //noinspection TypeScriptUnresolvedFunction
+            platform.ready().then(() => {
+
+                    //we don't have the user data so we will ask him to log in
+                    Splashscreen.hide();
+                    StatusBar.styleDefault();
+                  });
+
   }
 }

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
 
+
+declare var window: any;
 @Injectable()
 export class EventData {
   public currentUser: any;
@@ -10,45 +12,60 @@ export class EventData {
   constructor() {
     this.currentUser = firebase.auth().currentUser.uid;
     this.eventList = firebase.database().ref('userProfile/' + this.currentUser + '/eventList');
-    this.profilePictureRef = firebase.storage().ref('/guestProfile/');
+    this.profilePictureRef = firebase.storage().ref('/userProfile/'+ this.currentUser + '/eventList');
 
   }
+
+  removeEvent(eventId){
+    let adaRef = firebase.database().ref('userProfile/' + this.currentUser + '/eventList');
+    adaRef.child(eventId).remove()
+        .then(function() {
+          console.log("Remove succeeded.")
+        })
+        .catch(function(error) {
+          console.log("Remove failed: " + error.message)
+        });
+  }
+
+
 
   getEventList(): any {
     return this.eventList;
   }
 
+
   getEventDetail(eventId): any {
     return this.eventList.child(eventId);
   }
 
-  createEvent(eventName: string, eventDate: string, eventPrice: number, eventCost: number): any {
+  getPicDetail(eventId): any{
+      return this.profilePictureRef.child(eventId);
+  }
+
+  createEvent(recipeName: string, ingredients: string, calories:string,preparation: string): any {
     return this.eventList.push({
-      name: eventName,
-      date: eventDate,
-      price: eventPrice * 1,
-      cost: eventCost * 1,
-      revenue: eventCost * -1
+      name: recipeName,
+      ingredients:ingredients,
+      calories:calories,
+      preparation:preparation,
     }).then( newEvent => {
       this.eventList.child(newEvent.key).child('id').set(newEvent.key);
     });
   }
+  addPicture( eventId, guestPicture = null): any {
+    return this.eventList.child(eventId).child('PictureList').push({
 
-  addGuest(guestName, eventId, eventPrice, guestPicture = null): any {
-    return this.eventList.child(eventId).child('guestList').push({
-      guestName: guestName
-    }).then((newGuest) => {
+    }).then((newPicture) => {
       this.eventList.child(eventId).transaction( (event) => {
-        event.revenue += eventPrice;
         return event;
       });
       if (guestPicture != null) {
-        this.profilePictureRef.child(newGuest.key).child('profilePicture.png')
-      .putString(guestPicture, 'base64', {contentType: 'image/png'})
-        .then((savedPicture) => {
-          this.eventList.child(eventId).child('guestList').child(newGuest.key).child('profilePicture')
-          .set(savedPicture.downloadURL);
-        });        
+        this.profilePictureRef.child(newPicture.key).child('recipePicture.png')
+            .putString(guestPicture, 'base64', {contentType: 'image/png'})
+            .then((savedPicture) => {
+              this.eventList.child(eventId).child('PictureList').child(newPicture.key).child('recipePicture')
+                  .set(savedPicture.downloadURL);
+            });
       }
     });
   }

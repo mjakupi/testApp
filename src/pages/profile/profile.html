@@ -10,11 +10,14 @@
 </ion-header>
 
 <ion-content padding>
+
+    <img class="img-circle" src="http://placehold.it/150x150">
   <ion-list>
     <ion-list-header>
       Personal Information
     </ion-list-header>
-
+</ion-list>
+    <ion-list>
     <ion-item (click)="updateName()">
       <ion-grid>
         <ion-row>
@@ -72,4 +75,8 @@
       </ion-grid>
     </ion-item>
   </ion-list>
+    <br>
+    <button ion-button block (click)="logout()">
+        Logout from Facebook
+    </button>
 </ion-content>

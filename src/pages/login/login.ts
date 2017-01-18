@@ -1,11 +1,17 @@
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
-import { Component } from '@angular/core';
+import { Component,NgZone } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthData } from '../../providers/auth-data';
 import { SignupPage } from '../signup/signup';
 import { HomePage } from '../home/home';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 import { EmailValidator } from '../../validators/email';
+import {Facebook, NativeStorage} from 'ionic-native';
+import {FbLoginPage} from "../fb-login/fb-login";
+import {TabsPage} from "../tabs/tabs";
+import firebase from 'firebase';
+
+
 
 @Component({
   selector: 'page-login',
@@ -17,6 +23,8 @@ export class LoginPage {
   passwordChanged: boolean = false;
   submitAttempt: boolean = false;
   loading: any;
+  userProfile: any = null;
+    zone: NgZone;
 
   constructor(public nav: NavController, public authData: AuthData, public formBuilder: FormBuilder,
     public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
@@ -32,6 +40,36 @@ export class LoginPage {
       password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
     });
   }
+
+
+  facebookLogin(){
+    let nav = this.nav;
+    Facebook.login(['email']).then( (response) => {
+      let facebookCredential = firebase.auth.FacebookAuthProvider
+          .credential(response.authResponse.accessToken);
+
+      return firebase.auth().signInWithCredential(facebookCredential)
+          .then((user) => {
+
+              this.userProfile.child(firebase.auth().currentUser.uid).set({
+                  id:firebase.auth().currentUser.uid,
+                  email: user.email,
+                  displayName:user.displayName,
+                  profilePictureURL:user.photoURL
+              });
+              this.nav.setRoot(TabsPage);
+
+          })
+          .catch((error) => {
+            console.log("Firebase failure: " + JSON.stringify(error));
+          });
+
+    }).catch((error) => { console.log(error) });
+  }
+
+
+
+
 
   /**
    * Receives an input field and sets the corresponding fieldChanged property to 'true' to help with the styles.
@@ -86,4 +124,7 @@ export class LoginPage {
     this.nav.push(ResetPasswordPage);
   }
 
+  fblogin(){
+    this.nav.push(FbLoginPage)
+  }
 }
