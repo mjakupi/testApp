@@ -6,7 +6,7 @@ import { SignupPage } from '../signup/signup';
 import { HomePage } from '../home/home';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 import { EmailValidator } from '../../validators/email';
-import {Facebook, NativeStorage} from 'ionic-native';
+import {Facebook} from 'ionic-native';
 import {FbLoginPage} from "../fb-login/fb-login";
 import {TabsPage} from "../tabs/tabs";
 import firebase from 'firebase';

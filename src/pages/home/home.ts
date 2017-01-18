@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ProfilePage } from '../profile/profile';
-import { EventCreatePage } from '../event-create/event-create';
-import { EventListPage } from '../event-list/event-list';
 import {FbLoginPage} from "../fb-login/fb-login";
+import {RecipeCreatePage} from "../recipe-create/recipe-create";
+import {RecipeListPage} from "../recipe-list/recipe-list";
 
 @Component({
   selector: 'page-home',
@@ -19,11 +19,11 @@ export class HomePage {
   }
 
   goToCreate(){
-    this.nav.push(EventCreatePage);
+    this.nav.push(RecipeCreatePage);
   }
 
   goToList(){
-    this.nav.push(EventListPage);
+    this.nav.push(RecipeListPage);
   }
 
   login()

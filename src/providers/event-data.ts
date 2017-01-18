@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
+import {Platform} from "ionic-angular/index";
 
 
 declare var window: any;
 @Injectable()
 export class EventData {
   public currentUser: any;
-  public eventList: any;
+  public recipeList: any;
   public profilePictureRef: any;
-
-  constructor() {
+  public recipePicture:any;
+    public assetCollection:any;
+  constructor(public  platform:Platform) {
     this.currentUser = firebase.auth().currentUser.uid;
-    this.eventList = firebase.database().ref('userProfile/' + this.currentUser + '/eventList');
+    this.recipeList = firebase.database().ref('userProfile/' + this.currentUser + '/eventList');
     this.profilePictureRef = firebase.storage().ref('/userProfile/'+ this.currentUser + '/eventList');
 
   }
@@ -28,46 +30,47 @@ export class EventData {
   }
 
 
-
-  getEventList(): any {
-    return this.eventList;
+  getRecipeList(): any {
+    return this.recipeList;
   }
 
 
-  getEventDetail(eventId): any {
-    return this.eventList.child(eventId);
+  getRecipeDetail(eventId): any {
+    return this.recipeList.child(eventId);
   }
 
   getPicDetail(eventId): any{
       return this.profilePictureRef.child(eventId);
   }
 
-  createEvent(recipeName: string, ingredients: string, calories:string,preparation: string): any {
-    return this.eventList.push({
+  createRecipe(recipeName: string, ingredients: string, calories:string,preparation: string): any {
+    return this.recipeList.push({
       name: recipeName,
       ingredients:ingredients,
       calories:calories,
       preparation:preparation,
     }).then( newEvent => {
-      this.eventList.child(newEvent.key).child('id').set(newEvent.key);
+      this.recipeList.child(newEvent.key).child('id').set(newEvent.key);
     });
   }
   addPicture( eventId, guestPicture = null): any {
-    return this.eventList.child(eventId).child('PictureList').push({
+    return this.recipeList.child(eventId).child('PictureList').push({
 
     }).then((newPicture) => {
-      this.eventList.child(eventId).transaction( (event) => {
+      this.recipeList.child(eventId).transaction( (event) => {
         return event;
       });
       if (guestPicture != null) {
         this.profilePictureRef.child(newPicture.key).child('recipePicture.png')
             .putString(guestPicture, 'base64', {contentType: 'image/png'})
             .then((savedPicture) => {
-              this.eventList.child(eventId).child('PictureList').child(newPicture.key).child('recipePicture')
+              this.recipeList.child(eventId).child('PictureList').child(newPicture.key).child('recipePicture')
                   .set(savedPicture.downloadURL);
             });
       }
     });
   }
+
+
 
 }

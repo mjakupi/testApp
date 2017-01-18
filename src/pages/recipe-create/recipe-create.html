@@ -25,8 +25,10 @@
     </ion-textarea>
   </ion-item>
   <ion-buttons >
-    <button ion-button block (click)="createEvent(eventName, ingredients,calories,preparation)">
+    <button ion-button block (click)="createRecipe(eventName, ingredients,calories,preparation)">
       Create Recipe
+    </button> <button ion-button block name="camera" (click)="doGetPicture()">
+          Take Picture
     </button>
   </ion-buttons>
 

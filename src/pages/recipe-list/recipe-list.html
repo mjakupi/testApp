@@ -8,7 +8,7 @@
 <ion-content padding>
 
   <ion-list>
-  <ion-item-sliding *ngFor="let event of eventList" (click)="goToEventDetail(event.id)">
+  <ion-item-sliding *ngFor="let recipe of eventList" (click)="goToRecipeDetail(recipe.id)">
 
     <!-- Start ion-item -->
     <ion-item>
@@ -16,14 +16,14 @@
         <img class="small-img"  *ngFor="let image of images" [src]="image.two">
       </ion-avatar>
 
-      <h2>{{event.name}}</h2>
-      <p>Calories: <strong>{{event.calories}}</strong></p>
+      <h2>{{recipe.name}}</h2>
+      <p>Calories: <strong>{{recipe.calories}}</strong></p>
     </ion-item>
     <!-- End ion-item -->
 
     <!-- Start ion-item-options -->
     <ion-item-options side="right">
-      <button ion-button color="danger"  (click)="remove(event.id)">
+      <button ion-button color="danger"  (click)="remove(recipe.id)">
         <ion-icon name="ios-trash">
           Delete
         </ion-icon>

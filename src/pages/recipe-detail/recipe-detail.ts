@@ -7,33 +7,53 @@ import {Storage} from "@ionic/storage";
 import {PhotoProvider} from "../../providers/photo-provider";
 
 @Component({
-  selector: 'page-event-detail',
-  templateUrl: 'event-detail.html',
+  selector: 'page-recipe-detail',
+  templateUrl: 'recipe-detail.html',
 })
 
-export class EventDetailPage {
+export class RecipeDetailPage {
 
-  currentEvent:any;
-  currentPic:any;
+  currentRecipe:any;
   image:string;
   recipePicture: any = null;
   currentUser;
+    firebaseImages:any;
+    assetCollection:any;
     constructor(public nav:NavController, public navParams:NavParams, public photo:PhotoProvider,public storage: Storage,public eventData:EventData) {
     this.navParams = navParams;
 
-    this.eventData.getEventDetail(this.navParams.get('eventId')).on('value', (snapshot) => {
-      this.currentEvent = snapshot.val();
+    this.eventData.getRecipeDetail(this.navParams.get('eventId')).on('value', (snapshot) => {
+      this.currentRecipe = snapshot.val();
     });
   }
 
   facebookShare(){
-    SocialSharing.shareViaFacebook(this.currentEvent, "http://placehold.it/300x100",null);
+    SocialSharing.shareViaFacebook(this.currentRecipe, "http://placehold.it/300x100",null);
   }
 
-
     addPic() {
-        this.eventData.addPicture( this.currentEvent.id ,this.recipePicture).then(() => {
+        this.eventData.addPicture( this.currentRecipe.id ,this.recipePicture).then(() => {
             this.recipePicture = null;
+        });
+    }
+    loadData() {
+        // load data from firebase...
+        firebase.database().ref('assets').on('value', (_snapshot: any) => {
+            var result = [];
+
+            _snapshot.forEach((_childSnapshot) => {
+                // get the key/id and the data for display
+                var element = _childSnapshot.val();
+                element.id = _childSnapshot.key;
+
+                //result.push(element);
+                this.firebaseImages.push(element);
+            });
+
+            // set the component property
+            this.assetCollection = result;
+            console.log(result);
+
         });
     }
     takePicture(){
@@ -53,5 +73,7 @@ export class EventDetailPage {
             console.log("ERROR -> " + JSON.stringify(error));
         });
     }
+
+
 
 }

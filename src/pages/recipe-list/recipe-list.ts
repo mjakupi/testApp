@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import {NavController, ActionSheetController, AlertController} from 'ionic-angular';
-import { EventDetailPage } from '../event-detail/event-detail';
 import { EventData } from '../../providers/event-data';
+import {RecipeDetailPage} from "../recipe-detail/recipe-detail";
 
 
 @Component({
-  selector: 'page-event-list',
-  templateUrl: 'event-list.html',
+  selector: 'page-recipe-list',
+  templateUrl: 'recipe-list.html',
 })
-export class EventListPage {
+export class  RecipeListPage {
   public eventList: any;
     public images = [{
         "one": "https://images-na.ssl-images-amazon.com/images/M/MV5BZjcxNGU3ZTUtMDczNy00ZThiLWI4NmYtMDJkY2Q4YTU2ZjA5XkEyXkFqcGdeQXVyNjM1MTQ0NTQ@._V1_SY1000_CR0,0,660,1000_AL_.jpg",
@@ -21,7 +21,7 @@ export class EventListPage {
       this.nav = nav;
     this.eventData = eventData;
 
-      this.eventData.getEventList().on('value', snapshot => {
+      this.eventData.getRecipeList().on('value', snapshot => {
       let rawList = [];
       snapshot.forEach( snap => {
         rawList.push({
@@ -41,8 +41,8 @@ export class EventListPage {
         this.eventData.removeEvent(eventId);
     }
 
-  goToEventDetail(eventId){
-    this.nav.push(EventDetailPage, {
+  goToRecipeDetail(eventId){
+    this.nav.push(RecipeDetailPage, {
       eventId: eventId,
     });
   }

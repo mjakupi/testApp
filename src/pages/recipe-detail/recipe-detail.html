@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      {{currentEvent?.name}}
+      {{currentRecipe?.name}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,12 +9,12 @@
 <ion-content>
     <ion-card>
         <ion-card-header>
-            {{currentEvent?.name}}
+            {{currentRecipe?.name}}
         </ion-card-header>
         <ion-card-content>
-            <p>Ingredients: <strong>{{currentEvent?.ingredients}}</strong></p>
+            <p>Ingredients: <strong>{{currentRecipe?.ingredients}}</strong></p>
             <br>
-            <p>Preparation: <strong>{{currentEvent?.preparation}}</strong></p>
+            <p>Preparation: <strong>{{currentRecipe?.preparation}}</strong></p>
             <br>
 
         </ion-card-content>
@@ -36,7 +36,7 @@
                     </button>
                 </ion-list>
                 <ion-list>
-                    <div  *ngFor="let image of firebaseImages">
+                    <div *ngFor="let image of firebaseImages">
                         <img [src]=image.URL />
                     </div>
 
