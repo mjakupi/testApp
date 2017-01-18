@@ -32,4 +32,8 @@ export class HomePage {
   }
 
 
+  goToCreateRecipe(){
+    this.nav.push(RecipeCreatePage);
+  }
+
 }

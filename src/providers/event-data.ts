@@ -15,7 +15,6 @@ export class EventData {
     this.currentUser = firebase.auth().currentUser.uid;
     this.recipeList = firebase.database().ref('userProfile/' + this.currentUser + '/eventList');
     this.profilePictureRef = firebase.storage().ref('/userProfile/'+ this.currentUser + '/eventList');
-
   }
 
   removeEvent(eventId){
@@ -28,7 +27,6 @@ export class EventData {
           console.log("Remove failed: " + error.message)
         });
   }
-
 
   getRecipeList(): any {
     return this.recipeList;
@@ -43,7 +41,7 @@ export class EventData {
       return this.profilePictureRef.child(eventId);
   }
 
-  createRecipe(recipeName: string, ingredients: string, calories:string,preparation: string): any {
+  createRecipe(recipeName: string, ingredients: string, calories:number,preparation: string): any {
     return this.recipeList.push({
       name: recipeName,
       ingredients:ingredients,

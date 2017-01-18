@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, ActionSheetController, AlertController} from 'ionic-angular';
+import {NavController, ActionSheetController, AlertController, LoadingController} from 'ionic-angular';
 import { EventData } from '../../providers/event-data';
 import {RecipeDetailPage} from "../recipe-detail/recipe-detail";
 
@@ -10,17 +10,16 @@ import {RecipeDetailPage} from "../recipe-detail/recipe-detail";
 })
 export class  RecipeListPage {
   public eventList: any;
-    public images = [{
-        "one": "https://images-na.ssl-images-amazon.com/images/M/MV5BZjcxNGU3ZTUtMDczNy00ZThiLWI4NmYtMDJkY2Q4YTU2ZjA5XkEyXkFqcGdeQXVyNjM1MTQ0NTQ@._V1_SY1000_CR0,0,660,1000_AL_.jpg",
-        "two": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQWeXFHNnDiEsIxIjf27d1yNzEfS8tzT7z7aon4xSZIIjVRBlGN",
-        "three": "https://images-na.ssl-images-amazon.com/images/M/MV5BZjcxNGU3ZTUtMDczNy00ZThiLWI4NmYtMDJkY2Q4YTU2ZjA5XkEyXkFqcGdeQXVyNjM1MTQ0NTQ@._V1_SY1000_CR0,0,660,1000_AL_.jpg",
-        "four": "https://images-na.ssl-images-amazon.com/images/M/MV5BZjcxNGU3ZTUtMDczNy00ZThiLWI4NmYtMDJkY2Q4YTU2ZjA5XkEyXkFqcGdeQXVyNjM1MTQ0NTQ@._V1_SY1000_CR0,0,660,1000_AL_.jpg",
-    }
-    ];
-  constructor(public nav: NavController, public eventData: EventData, public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController) {
+  loading:any;
+  eventId:any;
+
+  constructor(public nav: NavController,public loadingCtrl: LoadingController,
+              public eventData: EventData,
+              public alertCtrl: AlertController
+      ,public actionSheetCtrl: ActionSheetController) {
       this.nav = nav;
     this.eventData = eventData;
-
+        this.showLoader();
       this.eventData.getRecipeList().on('value', snapshot => {
       let rawList = [];
       snapshot.forEach( snap => {
@@ -28,22 +27,44 @@ export class  RecipeListPage {
           id: snap.key,
           name: snap.val().name,
           ingredients: snap.val().ingredients,
-          preparation: snap.val().preparation,
           calories: snap.val().calories,
+          preparation: snap.val().preparation,
 
       });
       });
       this.eventList = rawList;
-    });
+        this.loading.dismiss();
+
+      });
+
   }
 
     remove(eventId){
-        this.eventData.removeEvent(eventId);
+        this.presentAlert();
+      this.eventData.removeEvent(eventId);
+
     }
 
   goToRecipeDetail(eventId){
     this.nav.push(RecipeDetailPage, {
       eventId: eventId,
     });
+  }
+
+  presentAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Recipe Deleted',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  showLoader(){
+
+    this.loading = this.loadingCtrl.create({
+      content: 'Loading...'
+    });
+
+    this.loading.present();
+
   }
 }

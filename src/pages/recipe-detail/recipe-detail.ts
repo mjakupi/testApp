@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, ActionSheetController, AlertController} from 'ionic-angular';
 import { EventData } from '../../providers/event-data';
 
 import {Camera, SocialSharing} from "ionic-native";
@@ -17,25 +17,29 @@ export class RecipeDetailPage {
   image:string;
   recipePicture: any = null;
   currentUser;
+    public userProfile: any;
+
     firebaseImages:any;
     assetCollection:any;
-    constructor(public nav:NavController, public navParams:NavParams, public photo:PhotoProvider,public storage: Storage,public eventData:EventData) {
+    constructor(public nav:NavController, public alertCtrl: AlertController,public navParams:NavParams,public photo:PhotoProvider,public storage: Storage,public eventData:EventData) {
     this.navParams = navParams;
 
     this.eventData.getRecipeDetail(this.navParams.get('eventId')).on('value', (snapshot) => {
       this.currentRecipe = snapshot.val();
     });
   }
-
-  facebookShare(){
-    SocialSharing.shareViaFacebook(this.currentRecipe, "http://placehold.it/300x100",null);
-  }
+    shareOnFb(){
+    SocialSharing.shareViaFacebook('This is awesome recipe', this.currentRecipe,null).then(() => {
+    // Success!
+    });
+    }
 
     addPic() {
         this.eventData.addPicture( this.currentRecipe.id ,this.recipePicture).then(() => {
             this.recipePicture = null;
         });
     }
+
     loadData() {
         // load data from firebase...
         firebase.database().ref('assets').on('value', (_snapshot: any) => {
@@ -56,6 +60,7 @@ export class RecipeDetailPage {
 
         });
     }
+
     takePicture(){
         //noinspection TypeScriptUnresolvedVariable
         Camera.getPicture({

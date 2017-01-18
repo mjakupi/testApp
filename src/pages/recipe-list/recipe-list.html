@@ -12,10 +12,6 @@
 
     <!-- Start ion-item -->
     <ion-item>
-      <ion-avatar item-right >
-        <img class="small-img"  *ngFor="let image of images" [src]="image.two">
-      </ion-avatar>
-
       <h2>{{recipe.name}}</h2>
       <p>Calories: <strong>{{recipe.calories}}</strong></p>
     </ion-item>
@@ -28,8 +24,8 @@
           Delete
         </ion-icon>
       </button>
-      <button ion-button color="primary">
-        <ion-icon name="edit">
+      <button ion-button color="secondary"  (click)="updateName">
+        <ion-icon name="update">
           Edit
         </ion-icon>
       </button>

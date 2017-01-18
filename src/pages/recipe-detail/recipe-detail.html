@@ -16,25 +16,14 @@
             <br>
             <p>Preparation: <strong>{{currentRecipe?.preparation}}</strong></p>
             <br>
-
         </ion-card-content>
         </ion-card>
+
         <ion-card>
             <ion-card-header>
-                Add Image
+                 Image
             </ion-card-header>
             <ion-card-content>
-                <ion-list no-lines>
-                    <span *ngIf="recipePicture">Picture taken!</span>
-
-                    <button ion-button color="primary" block (click)="takePicture()">
-                        Take a Picture
-                    </button>
-
-                    <button ion-button color="primary" block (click)="addPic(recipePicture)">
-                        Add Image
-                    </button>
-                </ion-list>
                 <ion-list>
                     <div *ngFor="let image of firebaseImages">
                         <img [src]=image.URL />
@@ -44,8 +33,6 @@
 
             </ion-card-content>
         </ion-card>
-
-
     <ion-fab right bottom>
         <button ion-fab color="primary"><ion-icon name="md-share"></ion-icon></button>
         <ion-fab-list side="left">

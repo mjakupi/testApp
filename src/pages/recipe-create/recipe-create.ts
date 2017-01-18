@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,Platform } from 'ionic-angular';
+import {NavController, Platform, AlertController} from 'ionic-angular';
 import { EventData } from '../../providers/event-data';
 import {Camera, SocialSharing} from "ionic-native";
 import {PhotoProvider} from "../../providers/photo-provider";
@@ -21,7 +21,8 @@ export class RecipeCreatePage {
     constructor(public nav:NavController,
                 public eventData:EventData,
                 public  photo:PhotoProvider,
-                public  platform:Platform) {
+                public  platform:Platform,
+                private alertCtrl: AlertController) {
         this.nav = nav;
         this.eventData = eventData;
     }
@@ -30,14 +31,23 @@ export class RecipeCreatePage {
         console.log('Hello GalleryPage Page');
     }
 
-    createRecipe(recipeName:string, ingredients:string, calories:string, preparation:string) {
+    createRecipe(recipeName:string, ingredients:string, calories:number, preparation:string) {
         this.eventData.createRecipe(recipeName, ingredients, calories, preparation).then(() => {
+            this.presentAlert();
             this.nav.pop();
+
         });
     }
 
 
-
+    presentAlert() {
+        let alert = this.alertCtrl.create({
+            title: 'Recipe Created',
+            subTitle: 'Well done',
+            buttons: ['OK']
+        });
+        alert.present();
+    }
 
     makeFileIntoBlob(_imagePath) {
 

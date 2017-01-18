@@ -4,6 +4,8 @@ import { HomePage } from '../home/home';
 import firebase from 'firebase';
 import {RecipeListPage} from "../recipe-list/recipe-list";
 import {RecipeCreatePage} from "../recipe-create/recipe-create";
+import {EventData} from "../../providers/event-data";
+import {AlertController, NavController} from "ionic-angular/index";
 
 
 @Component({
@@ -14,10 +16,12 @@ export class TabsPage {
   // should be each tab's root Page
   tab1Root: any = HomePage;
   tab2Root: any = RecipeListPage;
-  tab3Root: any=  RecipeCreatePage;
 
-
-  constructor() {
+  constructor(private alertCtrl: AlertController,public nav:NavController,public eventData:EventData,
+  ) {
 
   }
+
+
+
 }
